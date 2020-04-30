@@ -90,7 +90,7 @@ int main( ){
     double sum = 0;
     int n = 100;
     for(int i = 0.1; i<4; i = i+ 0.1){
-    sum = romberg(-10, 10, &potential, 1, 4, i, 0.0000000000005, 100, &n);
+    sum = romberg(-10, 10, &potential, 1, 4, i, 0.000000005, 100, &n);
     printf(" %f\n", sum);
     }
     
