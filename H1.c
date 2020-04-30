@@ -89,8 +89,10 @@ double romberg(double a, double b, double (*function)(double, double,double,doub
 int main( ){
     double sum = 0;
     int n = 100;
-    sum = romberg(-1000, 1000, &potential, 1, 4, 1, 0.0000000000005, 100, &n);
+    for(int i = 0.1; i<4; i = i+ 0.1){
+    sum = romberg(-10, 10, &potential, 1, 4, i, 0.0000000000005, 100, &n);
     printf(" %f\n", sum);
+    }
     
     printf(" %f", potential(1, 1, 1, 1));
 
