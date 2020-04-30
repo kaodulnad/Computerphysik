@@ -73,7 +73,7 @@ double romberg(double a, double b, double (*function)(double, double,double,doub
     *n0 = n;
 
 
-    printf("  \n");
+    //printf("  \n");
     result = *(Ttilde +indices((int) fmin(m,mmax),(int) fmin(m,mmax), mmax));
     }
     // free(h);
