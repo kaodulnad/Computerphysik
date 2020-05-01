@@ -87,14 +87,15 @@ double romberg(double a, double b, double (*function)(double, double,double,doub
 }
 
 int main( ){
+    double z = 0.5;
     double sum = 0;
-    int n = 100;
-    for(int i = 0.1; i<4; i = i+ 0.1){
-    sum = romberg(-10, 10, &potential, 1, 4, i, 0.000000005, 100, &n);
-    printf(" %f\n", sum);
+    int n = 10;
+    for(double i = 4; i>0.001; i -= i/2 ){
+    sum = romberg(-50, 50, &potential, 1, i, z, 0.00000001, 10, &n);
+    printf(" %f, %f\n", sum, i);
     }
     
-    printf(" %f", potential(1, 1, 1, 1));
+    printf(" punktladung %f\n", 1/(z*z*sqrt(3.14159265359)));
 
 
     //test
