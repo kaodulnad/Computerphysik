@@ -2,8 +2,17 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+double differnt(double xi, double h, double (*function)(double , double , double (*integrant)(double, double,double,double)
+                                ,double , double ,double, double , int , int *),double a, double b,double Q, double alpha, double fehler, int mmax, int *n0,double (*integrant)(double,double,double,double) ){
+            double forward  = (*function)(a, b, integrant, Q, alpha, xi+h, fehler,mmax, n0 );
+            double backward = (*function)(a, b, integrant, Q, alpha, xi-h, fehler,mmax, n0 );
+            return (forward - backward)/(2*h);
+    }
+
+//double 
+
 double potential(double Q, double a, double x, double z  ){
-    double pot = Q* exp(-x*x/a*a)/(a*sqrt(3.14159265359)*sqrt(x*x+z*z));
+    double pot = Q* exp(-x*x/a*a)/(sqrt( M_PI* (x*x+z*z)));
     //double pot = exp(x);
     //printf(" %f\n", pot);
     return pot;
@@ -62,7 +71,7 @@ double romberg(double a, double b, double (*function)(double, double,double,doub
             free(h);     
             free(Ttilde);
             free(T); 
-            printf(" ping, %i ", m);          
+            printf(" %i ", m);          
             return  ret;
         }
         } 
@@ -87,15 +96,18 @@ double romberg(double a, double b, double (*function)(double, double,double,doub
 }
 
 int main( ){
-    double z = 0.5;
+    double z = 1;
     double sum = 0;
-    int n = 10;
-    for(double i = 4; i>0.001; i -= i/2 ){
-    sum = romberg(-50, 50, &potential, 1, i, z, 0.00000001, 10, &n);
+    int n = 100000;
+    for(double i = 4; i>0.000000001; i -= i/2 ){
+    sum = romberg(-20*i,20*i, &potential, 1, i, z, 0.00000001, 10, &n)/i;
     printf(" %f, %f\n", sum, i);
     }
     
-    printf(" punktladung %f\n", 1/(z*z*sqrt(3.14159265359)));
+    printf(" punktladung %f\n", 1/(z));
+
+    printf(" E-feld %f bei z %f\n", -1*differnt(0.5, 0.00000001, &romberg, -50, 50, 1, 1, 0.00000001, 10, &n, potential  ), 0.5);
+
 
 
     //test
